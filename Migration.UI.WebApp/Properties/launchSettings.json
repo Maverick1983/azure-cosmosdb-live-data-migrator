@@ -34,9 +34,13 @@
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "ASPNETCORE_HOSTINGSTARTUPASSEMBLIES": "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation"
+        "ASPNETCORE_HOSTINGSTARTUPASSEMBLIES": "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation",
+        "AzureAd:TenantId": "6faf7bab-26c2-4438-a1b5-b9d9590106b6",
+        "AzureAd:ClientId": "0779bfa6-97cc-49ad-a299-719ff23e78a9",
+        "AzureAd:Domain": "azurecnhind.onmicrosoft.com"
       },
-      "applicationUrl": "https://localhost:5001;http://localhost:5000"
+      "applicationUrl": "https://127.0.0.1"
+      //"applicationUrl": "https://localhost:5001;http://localhost:5000"
     }
   }
 }

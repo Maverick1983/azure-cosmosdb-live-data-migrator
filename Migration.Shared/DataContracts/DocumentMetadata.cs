@@ -196,8 +196,7 @@ namespace Migration.Shared.DataContracts
         }
 
         //Property Getter/Setter for Expandable User property.
-        private object GetProperty(
-            string propertyName, Type returnType)
+        private object GetProperty(string propertyName, Type returnType)
         {
             if (this.propertyBag != null)
             {
@@ -213,7 +212,7 @@ namespace Migration.Shared.DataContracts
             //Any property not in JSON throw exception rather than returning null.
             throw new ArgumentException(
                 string.Format(CultureInfo.CurrentUICulture,
-                "Property '{0}'not found",
+                "Property '{0}' not found",
                 propertyName), propertyName);
         }
 
@@ -231,7 +230,14 @@ namespace Migration.Shared.DataContracts
             {
                 if (this.propertyBag != null)
                 {
-                    this.propertyBag.Remove(propertyName);
+                    bool check = this.propertyBag.Remove(propertyName);
+                    if (!check && this.propertyBag.Count > 0)
+                    {
+                        this.propertyBag[propertyName] = null;
+                    }
+                    else if (!check) {
+                        this.propertyBag[propertyName] = null;
+                    }
                 }
             }
             return value;

@@ -48,9 +48,14 @@ namespace Migration.Executor.WebJob
 
             try
             {
-                KeyVaultHelper.Initialize(
+#if DEBUG
+                InteractiveBrowserCredentialOptions o = new InteractiveBrowserCredentialOptions { TenantId = "6faf7bab-26c2-4438-a1b5-b9d9590106b6" };
+                KeyVaultHelper.Initialize(new Uri(EnvironmentConfig.Singleton.KeyVaultUri), new InteractiveBrowserCredential(o));
+#else
+          KeyVaultHelper.Initialize(
                     new Uri(EnvironmentConfig.Singleton.KeyVaultUri),
                     new DefaultAzureCredential());
+#endif
 
                 new Program().RunAsync().Wait();
             }

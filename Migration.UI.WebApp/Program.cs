@@ -20,14 +20,13 @@ namespace Migration.UI.WebApp
             {
                 EnvironmentConfig.Initialize();
 
-                TelemetryConfiguration telemetryConfig = new TelemetryConfiguration(
-                    EnvironmentConfig.Singleton.AppInsightsInstrumentationKey);
+                TelemetryConfiguration telemetryConfig = new TelemetryConfiguration(EnvironmentConfig.Singleton.AppInsightsInstrumentationKey);
                 TelemetryHelper.Initilize(telemetryConfig, SourceName);
             }
             catch (Exception error)
             {
                 Console.WriteLine(
-                    "UNHANDLED EXCEPTION during initialization before TelemetryClient oculd be created: {0}",
+                    "UNHANDLED EXCEPTION during initialization before TelemetryClient could be created: {0}",
                     error);
 
                 throw;
@@ -38,7 +37,12 @@ namespace Migration.UI.WebApp
                 _ = EnvironmentConfig.Singleton.TenantId;
                 _ = EnvironmentConfig.Singleton.AllowedUsers;
 
+#if DEBUG
+                InteractiveBrowserCredentialOptions o = new InteractiveBrowserCredentialOptions { TenantId = "6faf7bab-26c2-4438-a1b5-b9d9590106b6" };
+                KeyVaultHelper.Initialize(new Uri(EnvironmentConfig.Singleton.KeyVaultUri), new InteractiveBrowserCredential(o));
+#else
                 KeyVaultHelper.Initialize(new Uri(EnvironmentConfig.Singleton.KeyVaultUri), new DefaultAzureCredential());
+#endif
 
                 using (CosmosClient client =
                     KeyVaultHelper.Singleton.CreateCosmosClientFromKeyVault(

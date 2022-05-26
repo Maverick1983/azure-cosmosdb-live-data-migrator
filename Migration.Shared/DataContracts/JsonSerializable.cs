@@ -448,6 +448,7 @@ namespace Migration.Shared.DataContracts
         /// <param name="value"></param>
         internal void SetValue(string name, object value)
         {
+            Console.WriteLine($"Name: {name} - Value: {value}");
             if (this.propertyBag == null)
             {
                 this.propertyBag = new JObject();
